@@ -1,26 +1,24 @@
 <script setup>
-import { ref } from 'vue';
-import RecipeCallout from './RecipeCallout.vue';
-import RecipeList from './RecipeList.vue';
-import RecipeTable from './RecipeTable.vue';
-import api from '@/api';
+  import { ref } from 'vue';
+  import RecipeCallout from './RecipeCallout.vue';
+  import RecipeList from './RecipeList.vue';
+  import RecipeTable from './RecipeTable.vue';
+  import api from '@/api';
 
-const recipe = ref({});
-const isLoading = ref(true);
+  const recipe = ref({});
+  const isLoading = ref(true);
 
-async function getRecipe() {
-  recipe.value = await api.recipeService.getRecipeById(1);
+  async function getRecipe() {
+    recipe.value = await api.recipeService.getRecipeById(1);
 
-  isLoading.value = false;
-}
+    isLoading.value = false;
+  }
 
-getRecipe();
+  getRecipe();
 </script>
 
 <template>
-  <div v-if="isLoading">
-    Loading...
-  </div>
+  <div v-if="isLoading">Loading...</div>
   <article
     v-else
     class="recipe"
@@ -30,7 +28,7 @@ getRecipe();
         class="recipe__image"
         :src="'/assets/images/' + recipe.image.url"
         :alt="recipe.image.alt"
-      >
+      />
     </div>
 
     <div class="recipe__content">
@@ -50,7 +48,7 @@ getRecipe();
       </RecipeCallout>
 
       <section
-        v-for="section, sectionIndex in recipe.sections"
+        v-for="(section, sectionIndex) in recipe.sections"
         :key="sectionIndex"
         class="recipe__section"
       >
@@ -58,9 +56,8 @@ getRecipe();
           {{ section.title }}
         </h2>
 
-  
         <template
-          v-for="component, componentIndex in section.components"
+          v-for="(component, componentIndex) in section.components"
           :key="componentIndex"
         >
           <RecipeList
@@ -81,67 +78,67 @@ getRecipe();
         <hr
           v-if="index < recipe.sections.length - 1"
           class="recipe__divider"
-        >
+        />
       </section>
     </div>
   </article>
 </template>
 
 <style lang="scss" scoped>
-.recipe {
-  background-color: var(--rt-color-white);
-  max-width: 44rem;
+  .recipe {
+    background-color: var(--rt-color-white);
+    max-width: 44rem;
 
-  @include for-tablet-portrait-up {
-    border-radius: 15px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  }
-
-  &__image-wrapper {
-    @include for-tablet-portrait-up {
-      padding: 2rem;
-    }
-  }
-
-  &__image {
     @include for-tablet-portrait-up {
       border-radius: 15px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+
+    &__image-wrapper {
+      @include for-tablet-portrait-up {
+        padding: 2rem;
+      }
+    }
+
+    &__image {
+      @include for-tablet-portrait-up {
+        border-radius: 15px;
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    &__title {
+      font-family: var(--rt-font--secondary);
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--rt-color-stone-900);
+      line-height: 3rem;
+    }
+
+    &__section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    &__section-title {
+      font-family: var(--rt-font--secondary);
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--rt-color-brown-800);
+    }
+
+    &__divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--rt-color-stone-150);
+      border: 0;
     }
   }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  &__title {
-    font-family: var(--rt-font--secondary);
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: var(--rt-color-stone-900);
-    line-height: 3rem;
-  }
-
-  &__section {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  &__section-title {
-    font-family: var(--rt-font--secondary);
-    font-size: 1.75rem;
-    font-weight: 400;
-    color: var(--rt-color-brown-800);
-  }
-
-  &__divider {
-    width: 100%;
-    height: 1px;
-    background-color: var(--rt-color-stone-150);
-    border: 0;
-  }
-}
 </style>

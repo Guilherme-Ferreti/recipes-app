@@ -11,7 +11,10 @@ export default class RecipeService {
     return new Promise(async (resolve) => {
       const data = await import('@/recipes.json');
 
-      setTimeout(() => resolve(data.default.filter((recipe) => recipe.id === id)[0]), 2000);
+      setTimeout(
+        () => resolve(data.default.filter((recipe) => recipe.id === id)[0]),
+        2000,
+      );
     });
   }
 }
