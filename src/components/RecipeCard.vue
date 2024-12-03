@@ -4,7 +4,7 @@
   import RecipeList from './RecipeList.vue';
   import RecipeTable from './RecipeTable.vue';
   import api from '@/api';
-  import type { Recipe, RecipeListItem } from '@/types/Recipe';
+  import type { Recipe } from '@/types/Recipe';
 
   const recipe = ref<Recipe | null>(null);
   const isLoading = ref<boolean>(true);
@@ -62,9 +62,7 @@
           :key="componentIndex"
         >
           <RecipeList
-            v-if="
-              component.type === 'list' && typeof component.content !== 'string'
-            "
+            v-if="component.type === 'list'"
             :items="component.content"
           />
 
@@ -74,7 +72,7 @@
 
           <RecipeTable
             v-else-if="component.type === 'table'"
-            :rows="component.content as RecipeListItem[]"
+            :rows="component.content"
           />
         </template>
 

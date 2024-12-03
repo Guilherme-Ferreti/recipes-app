@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-  import type { RecipeListItem } from '@/types/Recipe';
+  import type { RecipeTableRow } from '@/types/Recipe';
   import type { PropType } from 'vue';
 
   defineProps({
-    rows: Array as PropType<RecipeListItem[]>,
+    rows: Array as PropType<RecipeTableRow[]>,
   });
 </script>
 

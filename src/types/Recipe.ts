@@ -12,14 +12,27 @@ export interface Recipe {
   }[];
   sections: {
     title: string;
-    components: {
-      type: 'paragraph' | 'list' | 'table';
-      content: string | string[] | RecipeListItem[];
-    }[];
+    components: RecipeComponent[];
   }[];
 }
 
-export interface RecipeListItem {
-  title: string;
-  value: string;
+type RecipeComponent = RecipeParagraph | RecipeList | RecipeTable;
+
+interface RecipeParagraph {
+  type: 'paragraph';
+  content: string;
 }
+
+interface RecipeList {
+  type: 'list';
+  content: RecipeListItem[];
+}
+
+export type RecipeListItem = string | { title: string; value: string };
+
+interface RecipeTable {
+  type: 'table';
+  content: RecipeTableRow[];
+}
+
+export type RecipeTableRow = { title: string; value: string };

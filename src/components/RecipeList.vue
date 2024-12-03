@@ -4,7 +4,7 @@
 
   defineProps({
     items: {
-      type: Array as PropType<string[] | RecipeListItem[]>,
+      type: Array as PropType<RecipeListItem[]>,
       required: true,
     },
     type: {
@@ -31,8 +31,7 @@
       class="recipe-list__item"
     >
       <template v-if="typeof item === 'object'">
-        <b>{{ item.title }}</b
-        >: {{ item.value }}
+        <b>{{ item.title + ':' }}</b> {{ item.value }}
       </template>
 
       <template v-else>
