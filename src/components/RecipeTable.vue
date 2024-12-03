@@ -6,7 +6,10 @@ defineProps({
 
 <template>
   <table class="recipe-table">
-    <tr v-for="row in rows">
+    <tr
+      v-for="row, index in rows"
+      :key="index"
+    >
       <td>{{ row.title }}</td>
       <td>
         <b>{{ row.value }}</b>

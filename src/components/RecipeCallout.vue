@@ -6,7 +6,9 @@ defineProps({
 
 <template>
   <div class="recipe-callout">
-    <h2 class="recipe-callout__title">{{ title }}</h2>
+    <h2 class="recipe-callout__title">
+      {{ title }}
+    </h2>
 
     <div class="recipe-callout__content">
       <slot />

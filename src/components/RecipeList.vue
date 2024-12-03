@@ -19,10 +19,13 @@ defineProps({
     :data-type="type"
     :data-theme="theme"
   >
-    <li class="recipe-list__item" v-for="item in items">
+    <li
+      v-for="item, index in items"
+      :key="index"
+      class="recipe-list__item"
+    >
       <template v-if="typeof item === 'object'">
-        <b>{{ item.title }}</b
-        >: {{ item.value }}
+        <b>{{ item.title }}</b>: {{ item.value }}
       </template>
 
       <template v-else>

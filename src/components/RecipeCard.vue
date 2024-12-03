@@ -18,32 +18,51 @@ getRecipe();
 </script>
 
 <template>
-  <div v-if="isLoading">Loading...</div>
-  <article v-else class="recipe">
+  <div v-if="isLoading">
+    Loading...
+  </div>
+  <article
+    v-else
+    class="recipe"
+  >
     <div class="recipe__image-wrapper">
       <img
         class="recipe__image"
         :src="'/assets/images/' + recipe.image.url"
         :alt="recipe.image.alt"
-      />
+      >
     </div>
 
     <div class="recipe__content">
-      <h1 class="recipe__title">{{ recipe.title }}</h1>
+      <h1 class="recipe__title">
+        {{ recipe.title }}
+      </h1>
 
-      <p class="recipe__description">{{ recipe.description }}</p>
+      <p class="recipe__description">
+        {{ recipe.description }}
+      </p>
 
       <RecipeCallout title="Preparation time">
-        <RecipeList :items="recipe.preparationTime" theme="secondary" />
+        <RecipeList
+          :items="recipe.preparationTime"
+          theme="secondary"
+        />
       </RecipeCallout>
 
       <section
+        v-for="section, sectionIndex in recipe.sections"
+        :key="sectionIndex"
         class="recipe__section"
-        v-for="(section, index) in recipe.sections"
       >
-        <h2 class="recipe__section-title">{{ section.title }}</h2>
+        <h2 class="recipe__section-title">
+          {{ section.title }}
+        </h2>
 
-        <template v-for="component in section.components">
+  
+        <template
+          v-for="component, componentIndex in section.components"
+          :key="componentIndex"
+        >
           <RecipeList
             v-if="component.type === 'list'"
             :items="component.content"
@@ -59,7 +78,10 @@ getRecipe();
           />
         </template>
 
-        <hr class="recipe__divider" v-if="index < recipe.sections.length - 1" />
+        <hr
+          v-if="index < recipe.sections.length - 1"
+          class="recipe__divider"
+        >
       </section>
     </div>
   </article>
