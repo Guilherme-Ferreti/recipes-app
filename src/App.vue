@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
   import RecipeCard from './components/RecipeCard.vue';
 </script>
 

@@ -1,6 +1,9 @@
-<script setup>
+<script lang="ts" setup>
   defineProps({
-    title: String,
+    title: {
+      type: String,
+      required: true,
+    },
   });
 </script>
 

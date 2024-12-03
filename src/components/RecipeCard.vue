@@ -1,12 +1,13 @@
-<script setup>
+<script lang="ts" setup>
   import { ref } from 'vue';
   import RecipeCallout from './RecipeCallout.vue';
   import RecipeList from './RecipeList.vue';
   import RecipeTable from './RecipeTable.vue';
   import api from '@/api';
+  import type { Recipe, RecipeListItem } from '@/types/Recipe';
 
-  const recipe = ref({});
-  const isLoading = ref(true);
+  const recipe = ref<Recipe | null>(null);
+  const isLoading = ref<boolean>(true);
 
   async function getRecipe() {
     recipe.value = await api.recipeService.getRecipeById(1);
@@ -20,7 +21,7 @@
 <template>
   <div v-if="isLoading">Loading...</div>
   <article
-    v-else
+    v-else-if="recipe"
     class="recipe"
   >
     <div class="recipe__image-wrapper">
@@ -61,7 +62,9 @@
           :key="componentIndex"
         >
           <RecipeList
-            v-if="component.type === 'list'"
+            v-if="
+              component.type === 'list' && typeof component.content !== 'string'
+            "
             :items="component.content"
           />
 
@@ -71,12 +74,12 @@
 
           <RecipeTable
             v-else-if="component.type === 'table'"
-            :rows="component.content"
+            :rows="component.content as RecipeListItem[]"
           />
         </template>
 
         <hr
-          v-if="index < recipe.sections.length - 1"
+          v-if="sectionIndex < recipe.sections.length - 1"
           class="recipe__divider"
         />
       </section>

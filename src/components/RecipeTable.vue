@@ -1,6 +1,9 @@
-<script setup>
+<script lang="ts" setup>
+  import type { RecipeListItem } from '@/types/Recipe';
+  import type { PropType } from 'vue';
+
   defineProps({
-    rows: Array,
+    rows: Array as PropType<RecipeListItem[]>,
   });
 </script>
 
