@@ -9,7 +9,7 @@ export default class RecipeService {
     });
   }
 
-  static async getRecipeById(id: number): Promise<Recipe> {
+  static async getRecipeById(id: string): Promise<Recipe> {
     return new Promise(async (resolve) => {
       const data = await this.getRecipes();
 

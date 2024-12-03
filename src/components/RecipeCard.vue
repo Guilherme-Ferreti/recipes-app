@@ -6,11 +6,18 @@
   import api from '@/api';
   import type { Recipe } from '@/types/Recipe';
 
+  const props = defineProps({
+    id: {
+      type: String,
+      required: true,
+    },
+  });
+
   const recipe = ref<Recipe | null>(null);
   const isLoading = ref<boolean>(true);
 
   async function getRecipe() {
-    recipe.value = await api.recipeService.getRecipeById(1);
+    recipe.value = await api.recipeService.getRecipeById(props.id);
 
     isLoading.value = false;
   }
@@ -83,6 +90,8 @@
       </section>
     </div>
   </article>
+
+  <div v-else>Recipe not found.</div>
 </template>
 
 <style lang="scss" scoped>
