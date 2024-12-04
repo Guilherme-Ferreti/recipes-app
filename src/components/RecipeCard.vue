@@ -5,6 +5,7 @@
   import RecipeTable from './RecipeTable.vue';
   import api from '@/api';
   import type { Recipe } from '@/types/Recipe';
+  import AppCard from './AppCard.vue';
 
   const props = defineProps({
     id: {
@@ -26,20 +27,25 @@
 </script>
 
 <template>
-  <div v-if="isLoading">Loading...</div>
-  <article
-    v-else-if="recipe"
-    class="recipe"
+  <RouterLink
+    :to="{ name: 'home' }"
+    class="back-link"
   >
-    <div class="recipe__image-wrapper">
-      <img
-        class="recipe__image"
-        :src="'/assets/images/' + recipe.image.url"
-        :alt="recipe.image.alt"
-      />
-    </div>
+    Back to recipes
+  </RouterLink>
 
-    <div class="recipe__content">
+  <div v-if="isLoading">Loading...</div>
+
+  <AppCard v-else-if="recipe">
+    <article class="recipe">
+      <div class="recipe__image-wrapper">
+        <img
+          class="recipe__image"
+          :src="'/assets/images/' + recipe.image.url"
+          :alt="recipe.image.alt"
+        />
+      </div>
+
       <h1 class="recipe__title">
         {{ recipe.title }}
       </h1>
@@ -88,25 +94,28 @@
           class="recipe__divider"
         />
       </section>
-    </div>
-  </article>
+    </article>
+  </AppCard>
 
   <div v-else>Recipe not found.</div>
 </template>
 
 <style lang="scss" scoped>
-  .recipe {
-    background-color: var(--rt-color-white);
-    max-width: 44rem;
+  .back-link {
+    margin-bottom: 2rem;
+  }
 
-    @include for-tablet-portrait-up {
-      border-radius: 15px;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    }
+  .recipe {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
     &__image-wrapper {
+      margin: -2rem;
+      margin-bottom: 0;
+
       @include for-tablet-portrait-up {
-        padding: 2rem;
+        margin: 0;
       }
     }
 
@@ -114,13 +123,6 @@
       @include for-tablet-portrait-up {
         border-radius: 15px;
       }
-    }
-
-    &__content {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      padding: 2rem;
     }
 
     &__title {
