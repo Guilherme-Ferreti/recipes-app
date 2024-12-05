@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import api from '@/api';
   import AppCard from '@/components/AppCard.vue';
+  import AppLayout from '@/components/AppLayout.vue';
   import type { Recipe } from '@/types/Recipe';
   import { ref } from 'vue';
 
@@ -16,7 +17,7 @@
 </script>
 
 <template>
-  <div class="recipes-list | container">
+  <AppLayout class="recipes-list">
     <h1>Recipes</h1>
 
     <span v-if="isLoading">Loading recipes...</span>
@@ -32,7 +33,7 @@
         <h2>{{ recipe.title }}</h2>
       </AppCard>
     </RouterLink>
-  </div>
+  </AppLayout>
 </template>
 
 <style lang="scss" scoped>
